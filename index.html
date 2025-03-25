@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Information</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Train Information</h2>
+    <table id="trainTable">
+        <thead>
+            <tr id="tableHeader"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+        async function fetchData() {
+            const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-N4DwnZk0Z7pi2EgNb4IxefpGUZwkmAltrX11yIYy19Ni9E_EhglNJCki5_8_0Tc15GtuCYjVNWCc/pub?output=csv";
+            const response = await fetch(sheetURL);
+            const data = await response.text();
+            const rows = data.split("\n").map(row => row.split(","));
+            
+            const tableHeader = document.getElementById("tableHeader");
+            const tableBody = document.getElementById("tableBody");
+            
+            tableHeader.innerHTML = rows[0].map(header => `<th>${header}</th>`).join("");
+            rows.slice(1).forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = row.map(cell => `<td>${cell}</td>`).join("");
+                tableBody.appendChild(tr);
+            });
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
