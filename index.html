@@ -52,7 +52,7 @@
 
     <script>
         async function fetchData() {
-            const sheetURL = "YOUR_GOOGLE_SHEET_CSV_URL";
+            const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT-N4DwnZk0Z7pi2EgNb4IxefpGUZwkmAltrX11yIYy19Ni9E_EhglNJCki5_8_0Tc15GtuCYjVNWCc/pub?output=csv";
             const response = await fetch(sheetURL);
             const data = await response.text();
             const rows = data.split("\n").map(row => row.split(","));
